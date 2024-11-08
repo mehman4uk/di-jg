@@ -1,0 +1,48 @@
+@use "@fontsource/noto-sans" as *;
+
+* {
+  box-sizing: border-box;
+}
+ 
+body, html {
+  background: var(--background-primary); 
+  background-color: #888;
+  display: flex;
+  font-family: "Noto Sans", sans-serif;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+  overflow: auto;
+}
+
+#app {
+  background: var(--background-primary); 
+  flex-grow: 1;
+  margin: 0 auto;
+  padding: 0;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 335px;
+  max-width: 630px;
+  overflow: auto;
+  position: relative;
+}
+
+$themes: (
+  light: (
+   background-primary: #ffffff
+  ),
+  dark: (
+    background-primary: #000000 
+  ),
+);
+
+@each $theme-name, $theme-map in $themes {
+  [data-theme='#{$theme-name}'] {
+    @each $key, $value in $theme-map {
+      --#{$key}: #{$value};
+    }
+  }
+}

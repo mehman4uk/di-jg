@@ -1,0 +1,116 @@
+@mixin header-h1-black {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 0px;
+  line-height: 36px;
+}
+@mixin header-h1-bold {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 36px;
+}
+@mixin header-h2-black {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0px;
+  line-height: 28px;
+}
+@mixin header-h2-bold {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 28px;
+}
+@mixin header-h2-medium {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 28px;
+}
+@mixin header-h3-bold {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 24px;
+}
+@mixin header-h3-medium {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 24px;
+}
+@mixin header-h3-regular {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 28px;
+}
+@mixin paragraph-p1-bold {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 24px;
+}
+@mixin paragraph-p1-medium {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 24px;
+}
+@mixin paragraph-p1-regular {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 24px;
+}
+@mixin paragraph-p2-bold {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 20px;
+}
+@mixin paragraph-p2-medium {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 20px;
+}
+@mixin paragraph-p2-regular {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 20px;
+}
+@mixin paragraph-p2-uppercase {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+@mixin paragraph-p3-bold {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 16px;
+}
+@mixin paragraph-p3-medium {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 16px;
+}
+@mixin paragraph-p3-regular {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 16px;
+}
+@mixin paragraph-p3-uppercase {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
