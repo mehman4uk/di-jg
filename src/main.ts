@@ -14,4 +14,4 @@ app.use(router);
 
 app.mount("#app");
 
-document.getElementById("app")!.dataset.theme = "dark";
+document.getElementById("app")!.dataset.theme = "light";

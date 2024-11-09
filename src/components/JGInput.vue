@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { computed, type PropType } from 'vue'
+import { computed, ref, type PropType } from 'vue'
+import { Icon } from '@iconify/vue'
+
+const inputValue = ref('')
+
+const lockIcon = 'mdi:lock'
+const clearIcon = 'solar:close-square-bold-duotone'
 
 export type ThemeType = 'text' | 'password' | 'textarea' | 'number'
 
+// Определение пропсов
 const props = defineProps({
   theme: {
     type: String as PropType<ThemeType>,
@@ -17,88 +24,142 @@ const props = defineProps({
     required: true,
     default: '',
   },
-  text: {
-    type: String,
-    default: '',
-  },
-  password: {
-    type: String,
-    default: '',
-  },
-  textarea: {
+  icon: {
     type: String,
     default: '',
   },
   number: {
     type: Number,
-    default: 0,
+    default: null,
+  },
+  type: {
+    type: String,
+    default: 'text',
   },
 })
 
-// Определение классов на основании темы
-const classes = computed(() => {
-  return {
-    [`${props.theme}`]: props.theme !== null,
-    disabled: props.disabled,
-  }
-})
+const computedClasses = computed(() => ({
+  [props.theme]: !!props.theme,
+  disabled: props.disabled,
+}))
+
+const computedIcon = computed(() => (props.disabled ? lockIcon : props.icon))
+
+const showClearIcon = computed(() => inputValue.value.length > 0)
+
+const clearInput = () => {
+  inputValue.value = ''
+}
 </script>
 
 <template>
-  <input
-    class="jg-input"
-    :class="classes"
-    :disabled="disabled"
-    :placeholder="placeholder"
-  />
+  <div class="jg-wrapper">
+    <input
+      v-model="inputValue"
+      v-mask="'###-###-####'"
+      class="jg-input"
+      :type="props.type"
+      :class="computedClasses"
+      :disabled="props.disabled"
+      :placeholder="props.placeholder"
+      :style="{ paddingLeft: computedIcon ? '34px' : '10px' }"
+    />
+    <Icon v-if="computedIcon" :icon="computedIcon" class="jg-icon" />
+    <Icon
+      v-if="showClearIcon"
+      :icon="clearIcon"
+      class="jg-clear-icon"
+      @click="clearInput"
+    />
+  </div>
 </template>
 
 <style lang="scss">
+.jg-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .jg-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 16px;
+    color: var(--input-placeholder);
+  }
+
+  .jg-clear-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 16px;
+    color: var(--input-placeholder);
+    cursor: pointer;
+  }
+}
+
 .jg-input {
   margin: 0;
   border: 0;
   padding: 12px 10px;
   border-radius: 16px;
+  font-size: 12px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-decoration: none;
+  width: 100%;
+  cursor: pointer;
+  color: var(--input-placeholder-filled);
+  background-color: var(--background-color);
+  border: 1px solid var(--input-stroke);
 
-  &.text {
-    background-color: var(--background-color);
-    color: red;
-    border: 1px solid var(--stroke);
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--input-disabled-background);
+    padding-left: 34px;
+
+    &::placeholder {
+      color: var(--input-disabled-text);
+    }
+
+    &:hover {
+      border: 1px solid var(--input-stroke);
+    }
   }
 
-  &.password {
-    background-color: var(--background-color);
-    color: red;
-    border: 1px solid var(--stroke);
+  &:focus {
+    border: 1px solid var(--input-stroke-focus);
+    outline: none;
   }
 
-  &.number {
-    background-color: var(--background-color);
-    color: red;
-    border: 1px solid var(--stroke);
+  &:hover {
+    border: 1px solid var(--input-stroke-focus);
   }
 
-  &.textarea {
-    background-color: var(--background-color);
-    color: red;
-    border: 1px solid var(--stroke);
-  }
+  // &.text,
+  // &.password,
+  // &.number,
+  // &.textarea {
+  //
+  // }
 }
 
 $themes: (
   light: (
-    background-color: #f2f3f7,
-    stroke: #f2f3f7,
-    placeholder: #626c77,
+    primary-color: #2d6ff0,
+    input-placeholder-filled: #1d2023,
+    input-placeholder: #626c77,
+    input-stroke: #f2f3f7,
+    input-stroke-focus: var(--primary-color),
+    input-disabled-text: #969fa8,
+    input-disabled-background: #f8f8fb,
   ),
   dark: (
-    background-color: #181b1e,
-    stroke: #3c434a,
-    placeholder: #969fa8,
+    primary-color: #2d6ff0,
+    input-placeholder-filled: #fafafa,
+    input-placeholder: #969fa8,
+    input-stroke: #3c434a,
+    input-stroke-focus: var(--primary-color),
+    input-disabled-text: #626c77,
+    input-disabled-background: #282b30,
   ),
 );
 

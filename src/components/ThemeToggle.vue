@@ -20,6 +20,11 @@ const setTheme = () => {
 </script>
 
 <template>
+  <div class="menu">
+    <a href="/jginput">Input</a>
+    <a href="/jgbutton">Button</a>
+    <a href="/jgtextarea">Textarea</a>
+  </div>
   <div class="change-theme" @click="setTheme">
     <Icon
       icon="solar:moon-bold-duotone"
@@ -44,5 +49,24 @@ const setTheme = () => {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+.menu {
+  width: 100%;
+  height: 64px;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  z-index: 999;
+  a {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
 }
 </style>
