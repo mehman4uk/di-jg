@@ -24,6 +24,7 @@ const setTheme = () => {
     <a href="/jginput">Input</a>
     <a href="/jgbutton">Button</a>
     <a href="/jgtextarea">Textarea</a>
+    <a href="/jgform">Form</a>
   </div>
   <div class="change-theme" @click="setTheme">
     <Icon

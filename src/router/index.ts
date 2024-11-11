@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/onboarding',
@@ -23,6 +23,15 @@ const router = createRouter({
       name: 'JGTextareaView',
       component: () =>
         import('../components/componentsView/JGTextareaView.vue'),
+    },
+    {
+      path: '/jgform',
+      name: 'JGFormView',
+      component: () => import('../components/componentsView/JGFormView.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/',
     },
   ],
 })

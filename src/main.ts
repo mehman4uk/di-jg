@@ -1,17 +1,17 @@
-import "reset-css";
+import 'reset-css'
 import './assets/base.scss'
 
-import { createApp } from "vue";
-import { createPinia } from "pinia";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-import App from "./App.vue";
-import router from "./router";
+import App from './App.vue'
+import router from './router'
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(createPinia());
-app.use(router);
+app.use(createPinia())
+app.use(router)
 
-app.mount("#app");
+app.mount('#app')
 
-document.getElementById("app")!.dataset.theme = "light";
+document.getElementById('app')!.dataset.theme = 'light'

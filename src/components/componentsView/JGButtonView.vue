@@ -23,5 +23,3 @@ import JGButton from '@/components/JGButton.vue'
     >
   </div>
 </template>
-
-<style lang="scss" scoped></style>

@@ -12,8 +12,8 @@ const props = defineProps({
     default: 'primary',
   },
   to: {
-    type: String,
-    default: null,
+    type: [String, Object],
+    required: false,
   },
   action: {
     type: String,
@@ -40,14 +40,14 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <router-link
+  <button
     class="jg-button"
     :class="classes"
-    :to="props.to"
+    :to="props.to || '/'"
     :disabled="props.disabled"
   >
     <slot></slot>
-  </router-link>
+  </button>
 </template>
 
 <style lang="scss">

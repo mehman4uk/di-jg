@@ -25,5 +25,3 @@ import JGInput from '../JGInput.vue'
     <JGInput placeholder="Без иконки" type="text" theme="text" />
   </div>
 </template>
-
-<style lang="scss" scoped></style>

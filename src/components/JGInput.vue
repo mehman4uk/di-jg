@@ -2,20 +2,23 @@
 import { computed, ref, type PropType } from 'vue'
 import { Icon } from '@iconify/vue'
 
-const inputValue = ref('')
+const modelValue = ref('')
 
 const lockIcon = 'mdi:lock'
 const clearIcon = 'solar:close-square-bold-duotone'
 
 export type ThemeType = 'text' | 'password' | 'textarea' | 'number'
 
-// Определение пропсов
 const props = defineProps({
   theme: {
     type: String as PropType<ThemeType>,
-    default: '',
+    default: 'text',
   },
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  required: {
     type: Boolean,
     default: false,
   },
@@ -28,13 +31,13 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  number: {
-    type: Number,
-    default: null,
-  },
   type: {
     type: String,
     default: 'text',
+  },
+  modelValue: {
+    type: [String, Number, Boolean],
+    default: '',
   },
 })
 
@@ -45,24 +48,28 @@ const computedClasses = computed(() => ({
 
 const computedIcon = computed(() => (props.disabled ? lockIcon : props.icon))
 
-const showClearIcon = computed(() => inputValue.value.length > 0)
+const showClearIcon = computed(
+  () => modelValue.value.length > 0 && !props.disabled,
+)
 
 const clearInput = () => {
-  inputValue.value = ''
+  if (!props.disabled) {
+    modelValue.value = ''
+  }
 }
 </script>
 
 <template>
   <div class="jg-wrapper">
     <input
-      v-model="inputValue"
-      v-mask="'###-###-####'"
       class="jg-input"
-      :type="props.type"
+      v-model="modelValue"
+      :type="type"
       :class="computedClasses"
-      :disabled="props.disabled"
-      :placeholder="props.placeholder"
-      :style="{ paddingLeft: computedIcon ? '34px' : '10px' }"
+      :disabled="disabled"
+      :required="required"
+      :placeholder="placeholder"
+      :style="{ paddingLeft: computedIcon ? '32px' : '12px' }"
     />
     <Icon v-if="computedIcon" :icon="computedIcon" class="jg-icon" />
     <Icon
@@ -98,18 +105,16 @@ const clearInput = () => {
 }
 
 .jg-input {
-  margin: 0;
-  border: 0;
   padding: 12px 10px;
   border-radius: 16px;
   font-size: 12px;
   display: flex;
   align-items: center;
   width: 100%;
-  cursor: pointer;
   color: var(--input-placeholder-filled);
-  background-color: var(--background-color);
+  background-color: var(--input-background);
   border: 1px solid var(--input-stroke);
+  cursor: text;
 
   &:disabled {
     cursor: not-allowed;
@@ -119,10 +124,6 @@ const clearInput = () => {
     &::placeholder {
       color: var(--input-disabled-text);
     }
-
-    &:hover {
-      border: 1px solid var(--input-stroke);
-    }
   }
 
   &:focus {
@@ -130,30 +131,25 @@ const clearInput = () => {
     outline: none;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     border: 1px solid var(--input-stroke-focus);
   }
-
-  // &.text,
-  // &.password,
-  // &.number,
-  // &.textarea {
-  //
-  // }
 }
 
 $themes: (
   light: (
     primary-color: #2d6ff0,
+    input-background: #f2f3f7,
     input-placeholder-filled: #1d2023,
     input-placeholder: #626c77,
-    input-stroke: #f2f3f7,
+    input-stroke: #d7dbe4,
     input-stroke-focus: var(--primary-color),
     input-disabled-text: #969fa8,
     input-disabled-background: #f8f8fb,
   ),
   dark: (
     primary-color: #2d6ff0,
+    input-background: #0f1012,
     input-placeholder-filled: #fafafa,
     input-placeholder: #969fa8,
     input-stroke: #3c434a,
