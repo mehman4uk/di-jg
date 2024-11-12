@@ -21,7 +21,7 @@ const handleSubmit = () => {
     <form @submit.prevent="handleSubmit">
       <JGInput
         v-model="form.name"
-        type="number"
+        type="text"
         icon="solar:phone-bold"
         placeholder="Ваш телефон"
       />

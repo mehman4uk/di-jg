@@ -2,11 +2,6 @@
 import { computed, ref, type PropType } from 'vue'
 import { Icon } from '@iconify/vue'
 
-const modelValue = ref('')
-
-const lockIcon = 'mdi:lock'
-const clearIcon = 'solar:close-square-bold-duotone'
-
 export type ThemeType = 'text' | 'password' | 'textarea' | 'number'
 
 const props = defineProps({
@@ -41,6 +36,18 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits(['update:modelValue', 'clear'])
+
+const modelValue = computed({
+  get: () => props.modelValue,
+  set: value => {
+    emit('update:modelValue', value)
+  },
+})
+
+const lockIcon = 'mdi:lock'
+const clearIcon = 'solar:close-square-bold-duotone'
+
 const computedClasses = computed(() => ({
   [props.theme]: !!props.theme,
   disabled: props.disabled,
@@ -49,12 +56,16 @@ const computedClasses = computed(() => ({
 const computedIcon = computed(() => (props.disabled ? lockIcon : props.icon))
 
 const showClearIcon = computed(
-  () => modelValue.value.length > 0 && !props.disabled,
+  () =>
+    typeof modelValue.value === 'string' &&
+    modelValue.value.length > 0 &&
+    !props.disabled,
 )
 
 const clearInput = () => {
   if (!props.disabled) {
     modelValue.value = ''
+    emit('clear')
   }
 }
 </script>
@@ -136,6 +147,7 @@ const clearInput = () => {
   }
 }
 
+// Определение тем
 $themes: (
   light: (
     primary-color: #2d6ff0,

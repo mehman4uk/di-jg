@@ -4,8 +4,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/onboarding',
-      name: 'OnboardingView',
+      path: '/ ',
+      name: ' ',
       component: () => import('../views/OnboardingView.vue'),
     },
     {
