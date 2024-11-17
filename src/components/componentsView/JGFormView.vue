@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import JGButton from '../JGButton.vue'
 import JGInput from '../JGInput.vue'
+import JGTextarea from '../JGTextarea.vue'
 import { reactive } from 'vue'
 
 const form = reactive({
@@ -31,11 +32,11 @@ const handleSubmit = () => {
         required
         placeholder="Ваш email"
       />
-      <textarea
+      <JGTextarea
         v-model="form.message"
         type="text"
         placeholder="Ваше сообщение"
-      ></textarea>
+      />
       <JGButton theme="primary" type="submit">Отправить</JGButton>
     </form>
   </div>
@@ -43,11 +44,18 @@ const handleSubmit = () => {
 
 <style scoped>
 .form-container {
+  display: flex;
+  gap: 12px;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 }
 </style>

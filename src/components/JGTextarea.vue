@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed, type PropType } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import type { PropType } from 'vue'
+
 export type ThemeType = 'textarea'
 
 const props = defineProps({
@@ -16,37 +18,64 @@ const props = defineProps({
     required: true,
     default: '',
   },
-  textarea: {
+  modelValue: {
     type: String,
     default: '',
   },
 })
 
+const emit = defineEmits(['update:modelValue', 'clear'])
+
+const modelValue = computed({
+  get: () => props.modelValue,
+  set: value => {
+    emit('update:modelValue', value)
+  },
+})
+
 const classes = computed(() => {
   return {
-    [`${props.theme}`]: props.theme !== null,
+    [props.theme]: props.theme !== null,
     disabled: props.disabled,
   }
+})
+
+const textarea = ref<HTMLTextAreaElement | null>(null)
+
+const adjustHeight = () => {
+  if (textarea.value) {
+    textarea.value.style.height = 'auto'
+    textarea.value.style.height = `${textarea.value.scrollHeight}px`
+  }
+}
+
+onMounted(() => {
+  adjustHeight()
 })
 </script>
 
 <template>
   <textarea
     class="jg-textarea"
+    v-model="modelValue"
     :class="classes"
     :disabled="disabled"
     :placeholder="placeholder"
+    @input="adjustHeight"
+    ref="textarea"
+    style="overflow: hidden"
   />
 </template>
 
 <style lang="scss">
 .jg-textarea {
-  border: 1px solid var(--stroke);
+  border: 1px solid var(--textarea-stroke);
   padding: 12px 10px;
   border-radius: 16px;
-  background-color: var(--background-color);
-  color: var(--placeholder);
+  background-color: var(--textarea-background);
+  color: var(--textarea-placeholder);
   font-size: 12px;
+  width: 100%;
 
   // &.textarea {
 
@@ -62,34 +91,38 @@ const classes = computed(() => {
     }
 
     &:hover {
-      border: 1px solid var(--stroke);
+      border: 1px solid var(--textarea-stroke);
     }
   }
 
   &:hover {
-    border: 1px solid var(--focus);
+    border: 1px solid var(--textarea-stroke-focus);
   }
 
   &:focus {
-    border: 1px solid var(--focus);
+    border: 1px solid var(--textarea-stroke-focus);
     outline: none;
   }
 }
 
 $themes: (
   light: (
-    background-color: #f2f3f7,
-    focus: #007cff,
-    stroke: #f2f3f7,
-    placeholder: #626c77,
+    primary-color: #2d6ff0,
+    textarea-background: #f2f3f7,
+    textarea-placeholder-filled: #1d2023,
+    textarea-placeholder: #626c77,
+    textarea-stroke: #d7dbe4,
+    textarea-stroke-focus: var(--primary-color),
     textarea-disabled-text: #969fa8,
     textarea-disabled-background: #f8f8fb,
   ),
   dark: (
-    background-color: #181b1e,
-    focus: #45b6fc,
-    stroke: #3c434a,
-    placeholder: #969fa8,
+    primary-color: #2d6ff0,
+    textarea-background: #0f1012,
+    textarea-placeholder-filled: #fafafa,
+    textarea-placeholder: #969fa8,
+    textarea-stroke: #3c434a,
+    textarea-stroke-focus: var(--primary-color),
     textarea-disabled-text: #626c77,
     textarea-disabled-background: #282b30,
   ),

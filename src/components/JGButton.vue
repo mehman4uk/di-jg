@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { RouterLink } from 'vue-router'
 import { computed, type PropType } from 'vue'
-
+import { RouterLink } from 'vue-router'
 export type ThemeType = 'primary' | 'secondary' | 'link' | 'disabled' | 'ghost'
 
 const emit = defineEmits(['click'])
@@ -12,8 +11,8 @@ const props = defineProps({
     default: 'primary',
   },
   to: {
-    type: [String, Object],
-    required: false,
+    type: String,
+    default: null,
   },
   action: {
     type: String,
@@ -29,7 +28,6 @@ const props = defineProps({
   },
 })
 
-// Определение классов на основании темы
 const classes = computed(() => {
   return {
     [`${props.theme}`]: props.theme !== null,
@@ -37,17 +35,23 @@ const classes = computed(() => {
     outline: props.outline,
   }
 })
+
+const onClick = () => {
+  emit('click', { action: props.action })
+}
 </script>
 
 <template>
-  <button
+  <component
+    :is="props.to ? RouterLink : 'button'"
+    @click="onClick"
     class="jg-button"
     :class="classes"
-    :to="props.to || '/'"
-    :disabled="props.disabled"
+    :to="to"
+    :disabled="disabled"
   >
     <slot></slot>
-  </button>
+  </component>
 </template>
 
 <style lang="scss">
@@ -57,6 +61,7 @@ const classes = computed(() => {
   border: none;
   padding: 14px;
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
   border-radius: 12px;

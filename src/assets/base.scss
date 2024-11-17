@@ -1,4 +1,6 @@
-@use '@fontsource/noto-sans' as *;
+@use '@fontsource/noto-sans' as *; 
+
+
 
 * {
   box-sizing: border-box;
@@ -6,13 +8,9 @@
 
 body,
 html {
-  background: var(--background-primary);
-  display: flex;
-  font-family: 'Noto Sans', sans-serif;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100vh;
-  overflow: auto;
+  background: var(--background-primary); 
+  font-family: 'Noto Sans', sans-serif;  
+  height: 100%;
 }
 
 h1 {
@@ -30,16 +28,9 @@ h1 {
 }
 
 #app {
-  background: var(--background-primary);
-  flex-grow: 1;
-  margin: 0 auto;
-  padding: 0;
-  font-weight: normal;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow: auto;
-  position: relative;
+  background: var(--background-primary);  
+  padding: 16px;
+  height: 100%;
 }
 
 $themes: (

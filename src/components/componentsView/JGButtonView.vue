@@ -5,7 +5,7 @@ import JGButton from '@/components/JGButton.vue'
 <template>
   <div class="grid-container">
     <h1>Type</h1>
-    <JGButton theme="primary" to="/">Primary</JGButton>
+    <JGButton theme="primary" to="/111">Primary</JGButton>
     <JGButton theme="secondary" to="/">Secondary</JGButton>
     <JGButton theme="link" to="/">Link</JGButton>
     <JGButton theme="ghost" to="/">Ghost</JGButton>

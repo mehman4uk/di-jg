@@ -7,3 +7,5 @@ import ThemeToggle from './components/ThemeToggle.vue'
   <ThemeToggle />
   <RouterView />
 </template>
+
+<style lang="scss" scoped></style>

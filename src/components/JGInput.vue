@@ -81,6 +81,7 @@ const clearInput = () => {
       :required="required"
       :placeholder="placeholder"
       :style="{ paddingLeft: computedIcon ? '32px' : '12px' }"
+      autocomplete="true"
     />
     <Icon v-if="computedIcon" :icon="computedIcon" class="jg-icon" />
     <Icon
